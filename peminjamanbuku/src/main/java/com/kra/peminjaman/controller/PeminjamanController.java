@@ -96,17 +96,17 @@ public class PeminjamanController {
     		throw new ResponseStatusException(HttpStatus.NOT_FOUND, String.format("Buku id (%s) sedang tidak dipinjam.", idBuku));
     	}
     	
-    	if(mhs.get().getBooks().contains(book.get())) {
-    		throw new ResponseStatusException(HttpStatus.NOT_FOUND, String.format("Buku id (%s) tidak ada dalam Mahasiswa (%s).", idBuku,idMhs));
+    	if(!peminjamanService.isOnPinjamanList(mhs.get(),book.get())) {
+    		throw new ResponseStatusException(HttpStatus.NOT_FOUND, String.format("Buku id (%s) tidak ada dalam pinjaman Mahasiswa (%s).", idBuku,idMhs));
     	}
     	
     	Mahasiswa updatedmhs = peminjamanService.pengembalianBuku(mhs.get(), book.get());
-    	if(updatedmhs == null)
-    		throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, String.format("Internal server error"));
+    	if(updatedmhs == null) {
+            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, String.format("Internal server error"));
+        }
     	return ResponseEntity.status(HttpStatus.OK).body(updatedmhs);
     }
 
-    
     //buat check data
     @GetMapping("/mahasiswa/{id}")
     public ResponseEntity<Mahasiswa> getMhsById(@PathVariable Integer id) {

@@ -27,6 +27,9 @@ public class Mahasiswa {
 	
 	@Column(name = "name")
 	private String name;
+
+	@Column(name = "bookcunter")
+	private int bookCounter;
 	
 	@OneToMany(mappedBy = "mahasiswa", cascade = CascadeType.ALL,orphanRemoval = true)
 	@JsonInclude(JsonInclude.Include.NON_NULL)
@@ -67,5 +70,14 @@ public class Mahasiswa {
             b.setMahasiswa(this);
         }
 	}
+
+	public int getBookCounter() {
+		return bookCounter;
+	}
+
+	public void setBookCounter(int bookCounter) {
+		this.bookCounter = bookCounter;
+	}
+
 
 }

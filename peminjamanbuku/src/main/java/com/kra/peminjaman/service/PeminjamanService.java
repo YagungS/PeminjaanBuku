@@ -54,6 +54,7 @@ public class PeminjamanService {
             	 Set<Buku> books = mhs.getBooks();
         		 books.add(book);
         		 mhs.setBooks(books);
+        		 mhs.setBookCounter(mhs.getBookCounter()+1);
         		 book.setMahasiswa(mhs);
         		 bookRepository.save(book);
     		 }
@@ -68,6 +69,7 @@ public class PeminjamanService {
 	    if (mhs != null && book !=null) {
 	 		if(book.getMahasiswa() != null) {       	 			
 	           	 mhs.getBooks().remove(book);
+	           	 mhs.setBookCounter(mhs.getBookCounter() == 0?0:mhs.getBookCounter()-1);
 	       		 book.setMahasiswa(null);
 	       		 bookRepository.save(book);
 	 		}

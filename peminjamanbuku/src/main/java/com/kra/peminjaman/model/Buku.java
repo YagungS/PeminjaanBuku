@@ -22,7 +22,9 @@ public class Buku {
 	
 	@Column(name = "name")
 	private String name;
-	
+	@Column(name = "author", nullable=false)
+	private String author;
+
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name="mhs_id", nullable=true)
 	@JsonIgnore
@@ -59,4 +61,11 @@ public class Buku {
 		this.name = name;
 	}
 
+	public String getAuthor() {
+		return author;
+	}
+
+	public void setAuthor(String author) {
+		this.author = author;
+	}
 }
